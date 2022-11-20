@@ -48,6 +48,7 @@ app = FastAPI()
 
 @app.get('/prime/{n}')
 async def check_if_prime(n):
+    """Check if number is prime. It shouldn't be greater 9223372036854775807"""
     if n.isnumeric():
         number = int(n)
         return prime_number(number)
@@ -57,6 +58,7 @@ async def check_if_prime(n):
 
 @app.post("/invert/picture/")
 async def get_image_file(path: bytes = File(...)):
+    """Invert uploaded photo"""
     try:
         response = StreamingResponse(
             content=invert_function(path),
@@ -106,6 +108,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 @app.post("/time")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    """Check the current date and time by logging in. User: grupa1, password: informatyka"""
     user_dict = fake_users_db.get(form_data.username)
     if not user_dict:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
@@ -114,4 +117,3 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     if not hashed_password == user.hashed_password:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     return datetime.datetime.utcnow().strftime("Day: %d.%m.%Y - %A; Time: %H:%M")
-
