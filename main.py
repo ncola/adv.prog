@@ -46,7 +46,7 @@ security = HTTPBasic()
 app = FastAPI()
 
 
-@app.get('/prime/{n}') #pierwszy endpoint
+@app.get('/prime/{n}') #first endpoint
 async def check_if_prime(n):
     """Check if number is prime. It shouldn't be greater 9223372036854775807"""
     if n.isnumeric():
@@ -56,7 +56,7 @@ async def check_if_prime(n):
         return "Not an integer"
 
 
-@app.post("/invert/picture/") #drugi endpoint
+@app.post("/invert/picture/") #second endpoint
 async def get_image_file(path: bytes = File(...)):
     """Invert uploaded photo"""
     try:
@@ -106,7 +106,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return user
 
 
-@app.post("/time") #trzeci endpoint
+@app.post("/time") #third endpoint
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     """Check the current date and time by logging in. User: grupa1, password: informatyka"""
     user_dict = fake_users_db.get(form_data.username)
